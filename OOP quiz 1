@@ -1,80 +1,110 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
+
 class LibrarySystem
 {
-protected:  //so that datamembers can be inherited by child class
+protected:
     string title;
     string author;
     int ID;
-    
+
 public:
-    LibrarySystem (string Title, string Author, int id)
+    LibrarySystem(string Title, string Author, int id)
     {
-        Title = title;
-        Author = author;
+        title = Title;
+        author = Author;
         ID = id;
     }
-    virtual void displayDetail ()
+
+    virtual void displayDetail()
     {
-       
+        
     }
 };
 
-class Book : LibrarySystem
+class Book : public LibrarySystem
 {
     int pages;
     string genre;
-    
-    Book(string title, string author, int ID; int pages, string genre): LibrarySystem(title, author, ID, pages);
-    
-   virtual void displayDetail() override
+
+public:
+    Book(string title, string author, int ID, int pages, string genre)
+        : LibrarySystem(title, author, ID)
     {
-        cout << "Title of the Book : " << title <<endl;
-        cout << "Author of the Book : " << author;
-        cout << "ID of the Book : " << ID;
-        cout << "Pages of the Book : " << pages;
-        cout << "Genre of the Book : " << genre;
+        this->pages = pages;
+        this->genre = genre;
+    }
+
+    void displayDetail() override
+    {
+        cout << "Title of the Book: " << title << endl;
+        cout << "Author of the Book: " << author << endl;
+        cout << "ID of the Book: " << ID << endl;
+        cout << "Pages of the Book: " << pages << endl;
+        cout << "Genre of the Book: " << genre << endl;
     }
 };
 
-class Magazine : LibrarySystem
+class Magazine : public LibrarySystem
 {
     int issueNum;
     string month;
-    
-    Magazine (string title, string author, int ID, int issueNum, string month) : LibrarySystem (title, author, ID, pages);
-    
-    virtual void displayDetail() override
-     {
-         cout << "Title of the Magazine : " << title;
-         cout << "Author of the Magazine : " << author;
-         cout << "ID of the Magazine : " << ID;
-         cout << "IssueNum of the Magazine : " << issueNum;
-         cout << "Month of Publication of the Book : " << month;
-     }
+
+public:
+    Magazine(string title, string author, int ID, int issueNum, string month)
+        : LibrarySystem(title, author, ID)
+    {
+        this->issueNum = issueNum;
+        this->month = month;
+    }
+
+    void displayDetail() override
+    {
+        cout << "Title of the Magazine: " << title << endl;
+        cout << "Author of the Magazine: " << author << endl;
+        cout << "ID of the Magazine: " << ID << endl;
+        cout << "Issue Number: " << issueNum << endl;
+        cout << "Month of Publication: " << month << endl;
+    }
 };
 
-class AudioBook : LibrarySystem
+class AudioBook : public LibrarySystem
 {
     int duration;
-    string name;
-    
-    AudioBook (string title, string author, int ID, int duration, string name) : LibrarySystem (title, author, ID, pages);
-    
-    virtual void displayDetail() override
-     {
-         cout << "Title of the AudioBook : " << title;
-         cout << "Author of the AudioBook : " << author;
-         cout << "ID of the AudioBook : " << ID;
-         cout << "Duration of the AudioBook : " << duration;
-         cout << "Narrator Name of the AudioBook : " << name;
-     }
+    string narrator;
+
+public:
+    AudioBook(string title, string author, int ID, int duration, string narrator)
+        : LibrarySystem(title, author, ID)
+    {
+        this->duration = duration;
+        this->narrator = narrator;
+    }
+
+    void displayDetail() override
+    {
+        cout << "Title of the AudioBook: " << title << endl;
+        cout << "Author of the AudioBook: " << author << endl;
+        cout << "ID of the AudioBook: " << ID << endl;
+        cout << "Duration (minutes): " << duration << endl;
+        cout << "Narrator Name: " << narrator << endl;
+    }
 };
 
-int main ()
+int main()
 {
-    
-    
-    
+    Book b1("Novel", "Aila", 101, 350, "Romcom");
+    Magazine m1("Scientific analysis", "Newton", 201, 45, "January");
+    AudioBook a1("ABC", "Alexa", 301, 120, "Alexa Brown");
+
+    cout << "----- Book Details -----" << endl;
+    b1.displayDetail();
+
+    cout << "\n----- Magazine Details -----" << endl;
+    m1.displayDetail();
+
+    cout << "\n----- AudioBook Details -----" << endl;
+    a1.displayDetail();
+
     return 0;
 }
