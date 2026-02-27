@@ -1,0 +1,80 @@
+#include<iostream>
+using namespace std;
+class LibrarySystem
+{
+protected:  //so that datamembers can be inherited by child class
+    string title;
+    string author;
+    int ID;
+    
+public:
+    LibrarySystem (string Title, string Author, int id)
+    {
+        Title = title;
+        Author = author;
+        ID = id;
+    }
+    virtual void displayDetail ()
+    {
+       
+    }
+};
+
+class Book : LibrarySystem
+{
+    int pages;
+    string genre;
+    
+    Book(string title, string author, int ID; int pages, string genre): LibrarySystem(title, author, ID, pages);
+    
+   virtual void displayDetail() override
+    {
+        cout << "Title of the Book : " << title <<endl;
+        cout << "Author of the Book : " << author;
+        cout << "ID of the Book : " << ID;
+        cout << "Pages of the Book : " << pages;
+        cout << "Genre of the Book : " << genre;
+    }
+};
+
+class Magazine : LibrarySystem
+{
+    int issueNum;
+    string month;
+    
+    Magazine (string title, string author, int ID, int issueNum, string month) : LibrarySystem (title, author, ID, pages);
+    
+    virtual void displayDetail() override
+     {
+         cout << "Title of the Magazine : " << title;
+         cout << "Author of the Magazine : " << author;
+         cout << "ID of the Magazine : " << ID;
+         cout << "IssueNum of the Magazine : " << issueNum;
+         cout << "Month of Publication of the Book : " << month;
+     }
+};
+
+class AudioBook : LibrarySystem
+{
+    int duration;
+    string name;
+    
+    AudioBook (string title, string author, int ID, int duration, string name) : LibrarySystem (title, author, ID, pages);
+    
+    virtual void displayDetail() override
+     {
+         cout << "Title of the AudioBook : " << title;
+         cout << "Author of the AudioBook : " << author;
+         cout << "ID of the AudioBook : " << ID;
+         cout << "Duration of the AudioBook : " << duration;
+         cout << "Narrator Name of the AudioBook : " << name;
+     }
+};
+
+int main ()
+{
+    
+    
+    
+    return 0;
+}
