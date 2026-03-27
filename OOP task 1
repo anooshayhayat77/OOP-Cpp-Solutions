@@ -1,0 +1,182 @@
+#include<iostream>
+using namespace std;
+
+//base class (common)
+class Hero{
+public:
+    string name;
+    string type;
+    int health;
+    int exp;
+    double power;
+    
+    
+    //constructor
+    Hero(string n, string t, int h, int e, double p)
+    {
+        name = n;
+        type = t;
+        health = h;
+        exp = e;
+        power = p;
+    }
+    
+    //common func
+    void mess(){
+        cout << "\n ~ Fantasy Battle Game ~ \n";
+        
+    }
+   
+    //pure vir func (abstract)
+    virtual double attack () = 0;
+    virtual double defend () = 0;
+    
+    //base info
+    virtual void show (){
+        cout << "\n Name : " << name;
+        cout << "\n Type : " << type;
+        cout << "\n Health : " << health;
+        cout << "\n Experience : " << exp;
+        cout << "\n Power : " << power << endl;
+        
+    }
+};
+
+//warrior (derived class)
+class Warrior : public Hero {
+    public :
+    string weapon;
+    double armor;
+    double rage;
+    
+    Warrior (string n,int h, double p, int e, string w, double a, double r) : Hero (n,"Warrior", h, e, p){
+        weapon = w;
+        armor = a;
+        rage = r;
+    }
+    
+    double attack() override{
+        return power + rage;
+    }
+    
+    double defend() override{
+        return armor;
+    }
+
+    void show() override{
+        Hero::show();
+        cout << "Weapon : " << weapon << endl;
+        cout << "Armor : " << armor << endl;
+        cout << "Rage : " << rage << endl;
+    }
+};
+
+//derived class
+class Mage : public Hero {
+public:
+    string spell;
+    double mana;
+    double magicMul;
+    
+    Mage (string n, int h, double p, int e, string s, double m, double mul) : Hero (n, "Mage", h, e, p){
+        
+        spell = s;
+        mana = m;
+        magicMul = mul;
+    }
+    
+    double attack() override{
+        return power * magicMul;
+    }
+    
+    double defend() override{
+        return mana;
+    }
+
+    void show() override{
+        Hero::show();
+        cout << "Spell : " << spell << endl;
+        cout << "Mana : " << mana << endl;
+        cout << "Magic Multiplier : " << magicMul << endl;
+    }
+};
+
+//derived class
+class Archer : public Hero {
+public:
+    string bow;
+    int arrows;
+    double acc;
+    
+    Archer (string n, int h, double p, int e, string b, int ar, double ac) : Hero (n, "Archer", h, e , p)
+    {
+        bow = b;
+        arrows = ar;
+        acc = ac;
+    }
+    
+    double attack()override{
+        return power*acc;
+    }
+    double defend()override{
+        return acc*10; //to make accuracy meaningful as it is usually a small value
+    }
+
+    void show() override{
+        Hero::show();
+        cout << "Bow : " << bow << endl;
+        cout << "Arrows : " << arrows << endl;
+        cout << "Accuracy : " << acc << endl;
+    }
+};
+
+int main ()
+{
+    Warrior w("Ragnar", 100, 50 , 20, "Dragon Slayer Sword", 35, 25);
+    Mage m("Merlin", 80, 40, 30, "Fire", 60, 2);
+    Archer a ("Robin", 90, 45, 25, "Bow", 30,1.5);
+    
+    w.mess();
+    cout << "\n--- Warrior ---";
+        w.show();
+        cout << "Attack: " << w.attack() << endl;
+        cout << "Defend: " << w.defend() << endl;
+
+        cout << "\n--- Mage ---";
+        m.show();
+        cout << "Attack: " << m.attack() << endl;
+        cout << "Defend: " << m.defend() << endl;
+
+        cout << "\n--- Archer ---";
+        a.show();
+        cout << "Attack: " << a.attack() << endl;
+        cout << "Defend: " << a.defend() << endl;
+
+    cout << "\n ~ Summary Comparison ~ \n";
+
+        double wAtk = w.attack();
+        double mAtk = m.attack();
+        double aAtk = a.attack();
+
+        cout << "Warrior Attack: " << wAtk << endl;
+        cout << "Mage Attack: " << mAtk << endl;
+        cout << "Archer Attack: " << aAtk << endl;
+
+        if (wAtk > mAtk && wAtk > aAtk) {
+            cout << "\nWarrior has the highest attack power!" << endl;
+        }
+        else if (mAtk > wAtk && mAtk > aAtk) {
+            cout << "\nMage has the highest attack power!" << endl;
+        }
+        else {
+            cout << "\nArcher has the highest attack power!" << endl;
+        }
+
+        cout << "\nOverall: Warrior relies on strength and rage, "
+             << "Mage uses powerful magic multipliers, "
+             << "and Archer depends on accuracy and precision.\n";
+
+    
+        return 0;
+    
+}
